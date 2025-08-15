@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil Muhammad Najwa Al Asror</title>
+<style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#fdfaf6; color:#333; }
+    header { background:linear-gradient(135deg,#3e8e41,#82c341); color:white; text-align:center; padding:4rem 1rem; position:relative; overflow:hidden; }
+    header::before { content:''; position:absolute; top:-50px; left:-50px; width:200px; height:200px; border:5px solid rgba(255,255,255,0.3); border-radius:50%; transform:rotate(45deg);}
+    header img { width:160px; height:160px; border-radius:50%; border:4px solid white; object-fit:cover; position:relative; z-index:1; }
+    header h1 { margin:1rem 0 0.3rem 0; font-size:2.5rem; position:relative; z-index:1; }
+    header p { margin:0.2rem 0; font-style:italic; position:relative; z-index:1; }
+    main { max-width:800px; margin:2rem auto; padding:0 1rem; }
+    section { margin-bottom:2rem; background:white; padding:2rem; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+    h2 { color:#3e8e41; margin-bottom:1rem; }
+    ul li { margin-bottom:0.5rem; }
+    .social-media a { margin-right:1rem; text-decoration:none; color:#3e8e41; font-weight:bold; transition:0.3s; }
+    .social-media a:hover { color:#82c341; }
+    .quote { font-style:italic; color:#555; margin-top:1rem; }
+    form input, form textarea { width:100%; padding:0.7rem; margin-bottom:1rem; border:1px solid #ccc; border-radius:6px; }
+    form button { background:#3e8e41; color:white; border:none; padding:0.8rem 1.5rem; border-radius:6px; cursor:pointer; }
+    form button:hover { background:#367336; }
+    .comment-item { border-bottom:1px solid #eee; padding:0.7rem 0; }
+    .comment-item p { margin:0.3rem 0 0 0; font-style:italic; }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="abang ganteng.jpg" alt="Foto Profil">
+    <h1>Muhammad Najwa Al Asror</h1>
+    <p>"ngaji,nopi,ngayomi"</p>
+    <p>📍 Batam,Indonesia | 🌿 PENGANGGURAN</p>
+</header>
+
+<main>
+    <section>
+        <h2>Perkenalan</h2>
+        <p>Assalamualaikum! Saya Muhammad Najwa Al Asror,seorang santri yang hobinya mengaji dan mencoba hal baru</p>
+    </section>
+
+    <section>
+        <h2>Data Diri</h2>
+        <ul>
+            <li>Nama:Muhammad Najwa Al Asror </li>
+            <li>Tempat, Tanggal Lahir: Demak, 21 Agustus 2006</li>
+            <li>Pendidikan: S1 Teknik perkapalan</li>
+            <li>Email: najwaalasror2108.com</li>
+            <li>Telepon: +62 82231389181</li>
+            <li>Hobi: Membaca, ngopi, dan mengaji</li>
+        </ul>
+    </section>
+
+    <section class="social-media">
+        <h2>Hubungi Saya</h2>
+        <a href="https://wa.me/6282231389181" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/alasror_21" target="_blank">Instagram</a>
+        <a href="https://github.com/asror" target="_blank">GitHub</a>
+    </section>
+
+    <section>
+        <h2>Kata-kata Inspiratif</h2>
+        <p class="quote">"Setiap hari adalah kesempatan baru untuk belajar, berbagi, dan menjadi lebih baik."</p>
+        <p class="quote">"Tetaplah hidup walau tidak berguna."</p>
+    </section>
+
+    <section>
+        <h2>Berikan Postingan / Ulasan</h2>
+        <form id="commentForm">
+            <input type="text" id="name" placeholder="Nama Anda" required>
+            <textarea id="comment" rows="4" placeholder="Tulis pesan Anda..." required></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+        <div class="comments" id="commentsList"></div>
+    </section>
+</main>
+
+<script>
+    const form = document.getElementById('commentForm');
+    const commentsList = document.getElementById('commentsList');
+
+    // Ambil komentar dari LocalStorage
+    const savedComments = JSON.parse(localStorage.getItem('comments')) || [];
+    savedComments.forEach(c => addCommentToDOM(c));
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const comment = document.getElementById('comment').value.trim();
+        if(name && comment){
+            const newComment = {name, comment, date: new Date().toLocaleString()};
+            savedComments.push(newComment);
+            localStorage.setItem('comments', JSON.stringify(savedComments));
+            addCommentToDOM(newComment);
+            form.reset();
+        }
+    });
+
+    function addCommentToDOM(comment){
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        div.innerHTML = `<strong>${comment.name}</strong> <em>${comment.date}</em><p>${comment.comment}</p>`;
+        commentsList.appendChild(div);
+    }
+</script>
+
+</body>
+</html>
